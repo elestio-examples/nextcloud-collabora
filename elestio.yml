@@ -1,0 +1,47 @@
+ports:
+  - protocol: "HTTPS"
+    targetProtocol: "HTTP"
+    listeningPort: "443"
+    targetPort: "21000"
+    targetIP: "172.17.0.1"
+    public: true
+    path: "/"
+    isAuth: false
+  - protocol: "HTTPS"
+    targetProtocol: "HTTP"
+    listeningPort: "21002"
+    targetPort: "21002"
+    targetIP: "172.17.0.1"
+    public: true
+    path: "/"
+    isAuth: false
+
+environments:
+  - key: DOMAIN
+    value: "[CI_CD_DOMAIN]"
+  - key: ADMIN_LOGIN
+    value: "[EMAIL]"
+  - key: ADMIN_PASSWORD
+    value: "random_password"
+
+config:
+  runTime: "dockerCompose"
+  version: ""
+  framework: ""
+  buildCommand: "docker-compose build"
+  buildDir: "/"
+  runCommand: "docker-compose up -d"
+  icon: ""
+  screenshot: "jenkins.jpg"
+lifeCycleConfig:
+  preInstallCommand: "./scripts/preInstall.sh"
+  postInstallCommand: "./scripts/postInstall.sh"
+  preBackupCommand: "./scripts/preBackup.sh"
+  postBackupCommand: "./scripts/postBackup.sh"
+  preRestoreCommand: "./scripts/preRestore.sh"
+  postRestoreCommand: "./scripts/postRestore.sh"
+webUI:
+  - url: "https://[CI_CD_DOMAIN]"
+    label: "Nextcloud WEB UI"
+    login: "[ADMIN_LOGIN]"
+    password: "[ADMIN_PASSWORD]"
