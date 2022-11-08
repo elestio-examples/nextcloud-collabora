@@ -48,7 +48,7 @@ services:
             - "./nextcloud/config:/var/www/html/config"
             - "./nextcloud/themes:/var/www/html/themes"
             - "./nextcloud/custom_apps:/var/www/html/custom_apps"
-            - "/etc/localtime:/etc/localtime:ro"
+            - "./etc/localtime:/etc/localtime:ro"
 
 
     collabora:
@@ -63,4 +63,4 @@ services:
             - 172.17.0.1:21002:9980
         restart: always
         volumes:
-            - "/etc/localtime:/etc/localtime:ro"
+            - "./etc/localtime:/etc/localtime:ro"
