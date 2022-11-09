@@ -59,6 +59,7 @@ services:
             - domain=${DOMAIN}
             - username=root
             - password=${ADMIN_PASSWORD}
+            - 'extra_params=--o:ssl.enable=false --o:ssl.termination=true--restart'
         ports:
             - 172.17.0.1:21002:9980
         restart: always
