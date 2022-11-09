@@ -17,12 +17,20 @@ ports:
     isAuth: false
 
 environments:
+  - key: "ADMIN_EMAIL"
+    value: "[EMAIL]"
+  - key: "ADMIN_PASSWORD"
+    value: "random_password"
   - key: DOMAIN
     value: "[CI_CD_DOMAIN]"
-  - key: ADMIN_LOGIN
-    value: "[EMAIL]"
-  - key: ADMIN_PASSWORD
-    value: "random_password"
+  - key: "MAIL_FROM_ADDRESS"
+    value: "[DOMAIN]"
+  - key: "MAIL_DOMAIN"
+    value: "vm.elestio.app"
+  - key: "EMAIL_HOST"
+    value: "172.17.0.1"
+  - key: "EMAIL_PORT"
+    value: "25"
 
 config:
   runTime: "dockerCompose"
@@ -43,5 +51,5 @@ lifeCycleConfig:
 webUI:
   - url: "https://[CI_CD_DOMAIN]"
     label: "Nextcloud WEB UI"
-    login: "[ADMIN_LOGIN]"
+    login: "[ADMIN_EMAIL]"
     password: "[ADMIN_PASSWORD]"
