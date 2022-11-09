@@ -13,7 +13,7 @@ curl http://${target}/index.php \
   -H 'content-type: application/x-www-form-urlencoded' \
   -H 'upgrade-insecure-requests: 1' \
   -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36' \
-  --data-raw 'install=true&adminlogin=root2&adminpass=YmRByUWc-J6bv-3EDZ2H9P&directory=%2Fvar%2Fwww%2Fhtml%2Fdata&dbtype=sqlite&dbuser=&dbpass=&dbpass-clone=&dbname=&dbhost=localhost' \
+  --data-raw 'install=true&adminlogin=root&adminpass='$ADMIN_PASSWORD'&directory=%2Fvar%2Fwww%2Fhtml%2Fdata&dbtype=sqlite&dbuser=&dbpass=&dbpass-clone=&dbname=&dbhost=localhost' \
   --compressed
 
 

@@ -51,5 +51,5 @@ lifeCycleConfig:
 webUI:
   - url: "https://[CI_CD_DOMAIN]"
     label: "Nextcloud WEB UI"
-    login: "[ADMIN_EMAIL]"
+    login: "root"
     password: "[ADMIN_PASSWORD]"
