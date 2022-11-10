@@ -19,6 +19,8 @@ ports:
 environments:
   - key: "ADMIN_EMAIL"
     value: "[EMAIL]"
+  - key: "ADMIN_LOGIN"
+    value: "root"
   - key: "ADMIN_PASSWORD"
     value: "random_password"
   - key: DOMAIN
