@@ -64,13 +64,13 @@ services:
     volumes:
       - ./nextcloud-app:/var/www/html
 
-  nextcloud-web:
-    image: nginx:alpine
-    restart: always
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
-    volumes_from:
-      - nextcloud-app
+#   nextcloud-web:
+#     image: nginx:alpine
+#     restart: always
+#     volumes:
+#       - ./nginx.conf:/etc/nginx/nginx.conf:ro
+#     volumes_from:
+#       - nextcloud-app
 
   nextcloud-collabora:
     image: collabora/code
