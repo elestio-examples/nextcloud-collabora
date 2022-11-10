@@ -1,7 +1,7 @@
-# set env vars
-# set -o allexport; source .env; set +o allexport;
+set env vars
+set -o allexport; source .env; set +o allexport;
 
-# sleep 20s;
+sleep 20s;
 
 # target=$(docker-compose port nextcloud 80)
 
