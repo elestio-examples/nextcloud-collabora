@@ -78,7 +78,7 @@ services:
     ports:
       - 172.17.0.1:9989:9980
     depends_on:
-      - nextcloud-web
+      - nextcloud-app
     cap_add:
      - MKNOD
     environment:
