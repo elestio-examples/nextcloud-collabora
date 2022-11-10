@@ -34,6 +34,8 @@ services:
   nextcloud-app:
     image: nextcloud:fpm-alpine
     restart: always
+    ports:
+      - 172.17.0.1:21002:80
     depends_on:
       - nextcloud-db
       - nextcloud-cache
@@ -65,8 +67,6 @@ services:
   nextcloud-web:
     image: nginx:alpine
     restart: always
-    ports:
-      - 172.17.0.1:21002:80
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     volumes_from:
