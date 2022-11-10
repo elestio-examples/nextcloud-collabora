@@ -35,7 +35,7 @@ services:
     image: nextcloud:fpm-alpine
     restart: always
     ports:
-      - 172.17.0.1:21002:80
+      - 172.17.0.1:21000:80
     depends_on:
       - nextcloud-db
       - nextcloud-cache
@@ -76,7 +76,7 @@ services:
     image: collabora/code
     restart: always
     ports:
-      - 172.17.0.1:9989:9980
+      - 172.17.0.1:21002:9980
     depends_on:
       - nextcloud-app
     cap_add:
