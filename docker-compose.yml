@@ -14,10 +14,10 @@ services:
         volumes:
           - ./db:/var/lib/mysql
         environment:
-          - MYSQL_ROOT_PASSWORD=${ADMIN_PASSWORD}
-          - MYSQL_PASSWORD=nextcloud
-          - MYSQL_DATABASE=nextcloud_db
-          - MYSQL_USER=nextcloud
+            - MYSQL_ROOT_PASSWORD=
+            - MYSQL_PASSWORD=
+            - MYSQL_DATABASE=nextcloud
+            - MYSQL_USER=nextcloud
 
     nextcloud: 
         depends_on: 
@@ -28,8 +28,9 @@ services:
         environment: 
             - REDIS_HOST=redis
             - REDIS_HOST_PORT=6379
-            - MYSQL_PASSWORD=nextcloud
-            - MYSQL_DATABASE=nextcloud_db
+            - MYSQL_ROOT_PASSWORD=
+            - MYSQL_PASSWORD=
+            - MYSQL_DATABASE=nextcloud
             - MYSQL_USER=nextcloud
             - NEXTCLOUD_ADMIN_USER=${ADMIN_LOGIN}
             - NEXTCLOUD_ADMIN_PASSWORD=${ADMIN_PASSWORD}
