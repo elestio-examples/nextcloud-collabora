@@ -101,3 +101,18 @@ services:
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
       - MYSQL_HOST=db
+
+  collabora:
+    image: collabora/code:latest
+    cap_add: 
+        - MKNOD
+    environment: 
+        - domain=${DOMAIN}
+        - username=root
+        - password=${ADMIN_PASSWORD}
+        - 'extra_params=--o:ssl.enable=false --o:ssl.termination=true--restart'
+    ports:
+        - 172.17.0.1:21002:9980
+    restart: always
+    volumes:
+        - "/etc/localtime:/etc/localtime:ro"
