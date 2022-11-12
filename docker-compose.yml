@@ -69,55 +69,157 @@
 
 
 
+# version: '2'
+
+# services:
+#   db:
+#     image: mariadb:10.5
+#     restart: always
+#     command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+#     volumes:
+#       - ./db:/var/lib/mysql
+#     environment:
+#       - MYSQL_ROOT_PASSWORD=123456
+#       - MYSQL_PASSWORD=123456
+#       - MYSQL_DATABASE=nextcloud
+#       - MYSQL_USER=nextcloud
+
+#   app:
+#     image: nextcloud
+#     restart: always
+#     ports:
+#       - 172.17.0.1:21000:80
+#     links:
+#       - db
+#     volumes:
+#       - ./nextcloud:/var/www/html
+#       - ./apps:/var/www/html/custom_apps
+#       - ./config:/var/www/html/config
+#       - ./data:/var/www/html/data
+#     environment:
+#       - MYSQL_PASSWORD=123456
+#       - MYSQL_DATABASE=nextcloud
+#       - MYSQL_USER=nextcloud
+#       - MYSQL_HOST=db
+#       - NEXTCLOUD_TRUSTED_DOMAINS=${DOMAIN}
+#       - OVERWRITEPROTOCOL=https
+
+#   collabora:
+#     image: collabora/code:latest
+#     cap_add: 
+#         - MKNOD
+#     environment: 
+#         - domain=${DOMAIN}
+#         - username=root
+#         - password=${ADMIN_PASSWORD}
+#         - 'extra_params=--o:ssl.enable=false --o:ssl.termination=true--restart'
+#         - DONT_GEN_SSL_CERT=1
+#         # - server_name=loolwsd.domain.com
+#         - "extra_params=--o:ssl.enable=false --o:ssl.termination=true"
+#     ports:
+#         - 172.17.0.1:21002:9980
+#     restart: always
+#     volumes:
+#         - "/etc/localtime:/etc/localtime:ro"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 version: '2'
 
-services:
-  db:
-    image: mariadb:10.5
-    restart: always
-    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
-    volumes:
-      - ./db:/var/lib/mysql
-    environment:
-      - MYSQL_ROOT_PASSWORD=123456
-      - MYSQL_PASSWORD=123456
-      - MYSQL_DATABASE=nextcloud
-      - MYSQL_USER=nextcloud
 
-  app:
-    image: nextcloud
+services:
+  proxy:
+    image: jwilder/nginx-proxy
     restart: always
     ports:
       - 172.17.0.1:21000:80
+    #   - 443:443
+    volumes:
+      - ./proxy/conf.d:/etc/nginx/conf.d
+      - ./proxy/vhost.d:/etc/nginx/vhost.d
+      - ./proxy/html:/usr/share/nginx/html
+      - ./proxy/certs:/etc/nginx/certs:ro
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+
+  letsencrypt-companion:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    restart: always
+    volumes_from:
+      - proxy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./proxy/certs:/etc/nginx/certs:rw
+
+
+  web:
+    image: nginx
+    restart: always
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    links:
+      - app
+    volumes_from:
+      - app
+    environment:
+      - VIRTUAL_HOST=${DOMAIN}
+      - VIRTUAL_NETWORK=nginx-proxy
+      - VIRTUAL_PORT=80
+      - LETSENCRYPT_HOST=${DOMAIN}
+    #   - LETSENCRYPT_EMAIL=<admin@domain.tld>
+
+
+  app:
+    image: indiehosters/nextcloud
+    restart: always
     links:
       - db
     volumes:
-      - ./nextcloud:/var/www/html
-      - ./apps:/var/www/html/custom_apps
-      - ./config:/var/www/html/config
-      - ./data:/var/www/html/data
+      - ./nextcloud/apps:/var/www/html/apps
+      - ./nextcloud/config:/var/www/html/config
+      - ./nextcloud/data:/var/www/html/data
+
+
+  db:
+    image: mariadb
+    restart: always
+    container_name: db
+    volumes:
+      - ./nextcloud/db:/var/lib/mysql
     environment:
-      - MYSQL_PASSWORD=123456
+      - MYSQL_ROOT_PASSWORD=${ADMIN_PASSWORD}
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
-      - MYSQL_HOST=db
-      - NEXTCLOUD_TRUSTED_DOMAINS=${DOMAIN}
-      - OVERWRITEPROTOCOL=https
+      - MYSQL_PASSWORD=${ADMIN_PASSWORD}
+
+  redis:
+    image: redis
+    restart: always
 
   collabora:
-    image: collabora/code:latest
-    cap_add: 
-        - MKNOD
-    environment: 
-        - domain=${DOMAIN}
-        - username=root
-        - password=${ADMIN_PASSWORD}
-        - 'extra_params=--o:ssl.enable=false --o:ssl.termination=true--restart'
-        - DONT_GEN_SSL_CERT=1
-        # - server_name=loolwsd.domain.com
-        - "extra_params=--o:ssl.enable=false --o:ssl.termination=true"
-    ports:
-        - 172.17.0.1:21002:9980
+    image: collabora/code
     restart: always
-    volumes:
-        - "/etc/localtime:/etc/localtime:ro"
+    expose:
+      - 172.17.0.1:21002:9980
+    cap_add:
+      - MKNOD
+    environment:
+      - domain=<cloud.domain.tld>
+      - VIRTUAL_HOST=${DOMAIN}
+      - VIRTUAL_NETWORK=nginx-proxy
+      - VIRTUAL_PORT=9980
+      - VIRTUAL_PROTO=https
+      - LETSENCRYPT_HOST=${DOMAIN}
+    #   - LETSENCRYPT_EMAIL=<admin@domain.tld>
