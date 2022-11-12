@@ -113,6 +113,9 @@ services:
         - username=root
         - password=${ADMIN_PASSWORD}
         - 'extra_params=--o:ssl.enable=false --o:ssl.termination=true--restart'
+        - DONT_GEN_SSL_CERT=1
+        # - server_name=loolwsd.domain.com
+        - "extra_params=--o:ssl.enable=false --o:ssl.termination=true"
     ports:
         - 172.17.0.1:21002:9980
     restart: always
