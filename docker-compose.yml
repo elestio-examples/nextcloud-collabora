@@ -212,14 +212,14 @@ services:
     image: collabora/code
     restart: always
     expose:
-      - 172.17.0.1:21002:9980
+      -9980
     cap_add:
       - MKNOD
     environment:
       - domain=<cloud.domain.tld>
       - VIRTUAL_HOST=${DOMAIN}
       - VIRTUAL_NETWORK=nginx-proxy
-      - VIRTUAL_PORT=9980
+      - VIRTUAL_PORT=21002
       - VIRTUAL_PROTO=https
       - LETSENCRYPT_HOST=${DOMAIN}
     #   - LETSENCRYPT_EMAIL=<admin@domain.tld>
