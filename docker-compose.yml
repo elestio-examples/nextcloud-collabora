@@ -212,7 +212,7 @@ services:
     image: collabora/code
     restart: always
     expose:
-      -9980
+      - 9980
     cap_add:
       - MKNOD
     environment:
