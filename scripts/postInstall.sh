@@ -12,7 +12,7 @@ sleep 20s;
 
 # utiliser sed insert after listen 21005 ssl http2;
 
-sed '/^listen 21005 ssl http2;/i location ^~ /browser {\nproxy_pass http://172.17.0.1:21002;\nproxy_set_header Host $http_host;\n}\n\n# main websocket\nlocation ~ ^/cool/(.*)/ws$ {\nproxy_pass http://172.17.0.1:21002;\nproxy_set_header Upgrade $http_upgrade;\nproxy_set_header Connection "Upgrade";\nproxy_set_header Host $http_host;\nproxy_read_timeout 36000s;\n}\n\n# download, presentation and image upload\nlocation ~ ^/(c|l)ool {\nproxy_pass http://172.17.0.1:21002;\nproxy_set_header Host $http_host;\n}\n\n# Admin Console websocket\nlocation ^~ /cool/adminws {\nproxy_pass http://172.17.0.1:21002;\nproxy_set_header Upgrade $http_upgrade;\nproxy_set_header Connection "Upgrade";\nproxy_set_header Host $http_host;\nproxy_read_timeout 36000s;\n}\n' /opt/elestio/nginx/conf.d/${DOMAIN}.conf
+sed '/^listen 21005 ssl http2;.*/a location ^~ /browser {\nproxy_pass http://172.17.0.1:21002;\nproxy_set_header Host $http_host;\n}\n\n# main websocket\nlocation ~ ^/cool/(.*)/ws$ {\nproxy_pass http://172.17.0.1:21002;\nproxy_set_header Upgrade $http_upgrade;\nproxy_set_header Connection "Upgrade";\nproxy_set_header Host $http_host;\nproxy_read_timeout 36000s;\n}\n\n# download, presentation and image upload\nlocation ~ ^/(c|l)ool {\nproxy_pass http://172.17.0.1:21002;\nproxy_set_header Host $http_host;\n}\n\n# Admin Console websocket\nlocation ^~ /cool/adminws {\nproxy_pass http://172.17.0.1:21002;\nproxy_set_header Upgrade $http_upgrade;\nproxy_set_header Connection "Upgrade";\nproxy_set_header Host $http_host;\nproxy_read_timeout 36000s;\n}\n' /opt/elestio/nginx/conf.d/${DOMAIN}.conf
 
 # 1.
 
