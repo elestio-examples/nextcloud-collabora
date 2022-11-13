@@ -112,7 +112,7 @@ services:
         - domain=${DOMAIN}
         - username=root
         - password=${ADMIN_PASSWORD}
-        - extra_params=--o:ssl.enable=false --o:ssl.termination=false --restart
+        - 'extra_params=--o:ssl.enable=false --o:ssl.termination=true--restart'
         - DONT_GEN_SSL_CERT=1
         # - server_name=loolwsd.domain.com
     ports:
