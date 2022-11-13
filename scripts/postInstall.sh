@@ -49,31 +49,22 @@ sed -i 's@listen 21005 ssl http2;@listen 21005 ssl http2;\nlocation ^~ /browser 
 
 docker exec elestio-nginx nginx -s reload;
 
-# target=$(docker-compose port app 80)
+target=$(docker-compose port app 80)
 
 
-# curl http://${target}/index.php \
-#   -H 'accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9' \
-#   -H 'accept-language: fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7,he;q=0.6' \
-#   -H 'cache-control: max-age=0' \
-#   -H 'content-type: application/x-www-form-urlencoded' \
-#   -H 'upgrade-insecure-requests: 1' \
-#   -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36' \
-#   --data-raw 'install=true&adminlogin=root&adminpass='$ADMIN_PASSWORD'&directory=%2Fvar%2Fwww%2Fhtml%2Fdata&dbtype=sqlite&dbuser=&dbpass=&dbpass-clone=&dbname=&dbhost=localhost' \
-#   --compressed
+curl http://${target}/index.php \
+  -H 'accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9' \
+  -H 'accept-language: fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7,he;q=0.6' \
+  -H 'cache-control: max-age=0' \
+  -H 'content-type: application/x-www-form-urlencoded' \
+  -H 'upgrade-insecure-requests: 1' \
+  -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36' \
+  --data-raw 'install=true&adminlogin=root&adminpass='$ADMIN_PASSWORD'&directory=%2Fvar%2Fwww%2Fhtml%2Fdata&dbtype=sqlite&dbuser=&dbpass=&dbpass-clone=&dbname=&dbhost=localhost' \
+  --compressed
 
 
-#   sed -i "s|0 => '172.17.0.1:21000'|0 => '"${DOMAIN}"'|g" ./config/config.php
-#   sed -i "s|'overwrite.cli.url' => 'https://172.17.0.1:21000'|'overwrite.cli.url' => 'https://"${DOMAIN}"'|g" ./config/config.php
+  sed -i "s|0 => '172.17.0.1:21000'|0 => '"${DOMAIN}"'|g" ./config/config.php
+  sed -i "s|'overwrite.cli.url' => 'https://172.17.0.1:21000'|'overwrite.cli.url' => 'https://"${DOMAIN}"'|g" ./config/config.php
 
-#   sed -i "s|'installed' => true,|'installed' => true,\n  'mail_from_address' => '"$MAIL_FROM_ADDRESS"',\n  'mail_smtpmode' => 'smtp',\n  'mail_sendmailmode' => 'smtp',\n  'mail_domain' => '"$MAIL_DOMAIN"',\n  'mail_smtpport' => '"$EMAIL_PORT"',\n  'mail_smtphost' => '"$EMAIL_HOST"',|g" ./config/config.php
-
-#   curl http://${target}/ocs/v2.php/cloud/users/root \
-#   -X 'PUT' \
-#   -H 'accept: application/json, text/plain, */*' \
-#   -H 'accept-language: fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7,he;q=0.6' \
-#   -H 'content-type: application/json' \
-#   -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36' \
-#   --data-raw '{"key":"email","value":"'${ADMIN_EMAIL}'"}' \
-#   --compressed
+  sed -i "s|'installed' => true,|'installed' => true,\n  'mail_from_address' => '"$MAIL_FROM_ADDRESS"',\n  'mail_smtpmode' => 'smtp',\n  'mail_sendmailmode' => 'smtp',\n  'mail_domain' => '"$MAIL_DOMAIN"',\n  'mail_smtpport' => '"$EMAIL_PORT"',\n  'mail_smtphost' => '"$EMAIL_HOST"',|g" ./config/config.php
 
