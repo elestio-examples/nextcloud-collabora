@@ -49,7 +49,7 @@ sed -i 's@listen 21005 ssl http2;@listen 21005 ssl http2;\nlocation ^~ /browser 
 
 docker exec elestio-nginx nginx -s reload;
 
-target=$(docker-compose port nextcloud 80)
+target=$(docker-compose port app 80)
 
 curl http://${target}
 
