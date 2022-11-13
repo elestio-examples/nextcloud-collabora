@@ -51,8 +51,6 @@ docker exec elestio-nginx nginx -s reload;
 
 target=$(docker-compose port app 80)
 
-curl http://${target}
-
 
 curl http://${target}/index.php \
   -H 'accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9' \
