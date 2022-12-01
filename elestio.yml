@@ -26,7 +26,7 @@ environments:
   - key: DOMAIN
     value: "[CI_CD_DOMAIN]"
   - key: "MAIL_FROM_ADDRESS"
-    value: "[DOMAIN]"
+    value: "[DOMAIN]@vm.elestio.app"
   - key: "MAIL_DOMAIN"
     value: "vm.elestio.app"
   - key: "EMAIL_HOST"
