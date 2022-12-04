@@ -25,6 +25,8 @@ environments:
     value: "random_password"
   - key: DOMAIN
     value: "[CI_CD_DOMAIN]"
+  - key: NEXTCLOUD_TRUSTED_DOMAINS
+    value: "[CI_CD_DOMAIN]"
   - key: "MAIL_FROM_ADDRESS"
     value: "[DOMAIN]@vm.elestio.app"
   - key: "MAIL_DOMAIN"
