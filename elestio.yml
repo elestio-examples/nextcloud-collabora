@@ -28,7 +28,7 @@ environments:
   - key: NEXTCLOUD_TRUSTED_DOMAINS
     value: "[CI_CD_DOMAIN]"
   - key: "MAIL_FROM_ADDRESS"
-    value: "[DOMAIN]@vm.elestio.app"
+    value: "[DOMAIN]"
   - key: "MAIL_DOMAIN"
     value: "vm.elestio.app"
   - key: "EMAIL_HOST"
