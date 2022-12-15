@@ -64,7 +64,7 @@ Click create new + to upload supported files, or choose between text, word docum
 
 # Activate CRON jobs
 
-Simplest way is to use CRON installed on the host instance, to configure it go to: https://[CI_CD_DOMAIN]/settings/admin
+Best setting is to use CRON option in Nextcloud, to configure it go to: https://[CI_CD_DOMAIN]/settings/admin
 and select CRON option in the list (recommended)
 
 
