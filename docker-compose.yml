@@ -1,21 +1,20 @@
-
-version: '2'
+version: "2"
 
 services:
   db:
-    image: mariadb:10.5
+    image: elestio/mysql:latest
     restart: always
     command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
     volumes:
       - ./db:/var/lib/mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=123456
-      - MYSQL_PASSWORD=123456
+      - MYSQL_ROOT_PASSWORD=${ADMIN_PASSWORD}
+      - MYSQL_PASSWORD=${ADMIN_PASSWORD}
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
 
   app:
-    image: nextcloud:${SOFTWARE_VERSION_TAG}
+    image: elestio/nextcloud:${SOFTWARE_VERSION_TAG}
     restart: always
     ports:
       - 172.17.0.1:21000:80
@@ -27,7 +26,7 @@ services:
       - ./config:/var/www/html/config
       - ./data:/var/www/html/data
     environment:
-      - MYSQL_PASSWORD=123456
+      - MYSQL_PASSWORD=${ADMIN_PASSWORD}
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
       - MYSQL_HOST=db
@@ -36,22 +35,22 @@ services:
 
   collabora:
     image: collabora/code:latest
-    cap_add: 
-        - MKNOD
-    environment: 
-        - domain=${DOMAIN}
-        - username=root
-        - password=${ADMIN_PASSWORD}
-        - 'extra_params=--o:ssl.enable=false --o:ssl.termination=true--restart'
-        - DONT_GEN_SSL_CERT=1
+    cap_add:
+      - MKNOD
+    environment:
+      - domain=${DOMAIN}
+      - username=root
+      - password=${ADMIN_PASSWORD}
+      - "extra_params=--o:ssl.enable=false --o:ssl.termination=true--restart"
+      - DONT_GEN_SSL_CERT=1
     ports:
-        - 172.17.0.1:21002:9980
+      - 172.17.0.1:21002:9980
     restart: always
     volumes:
-        - "/etc/localtime:/etc/localtime:ro"
+      - "/etc/localtime:/etc/localtime:ro"
 
   cron:
-    image: nextcloud
+    image: elestio/nextcloud:latest
     restart: always
     volumes:
       - ./nextcloud:/var/www/html
