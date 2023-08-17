@@ -10,7 +10,7 @@ Deploy Nextcloud with CI/CD on Elestio
 
 # Once deployed ...
 
-You can can open Nextcloud here:
+You can open Nextcloud here:
 
     URL: https://[CI_CD_DOMAIN]
     Login: root
@@ -64,7 +64,22 @@ Click create new + to upload supported files, or choose between text, word docum
 
 # Activate CRON jobs
 
-Best setting is to use CRON option in Nextcloud, to configure it go to: https://[CI_CD_DOMAIN]/settings/admin
-and select CRON option in the list (recommended)
+The best setting is to use the CRON option in Nextcloud, to configure it go to https://[CI_CD_DOMAIN]/settings/admin
+and select the CRON option in the list (recommended)
 
 
+# Language Setting
+
+By default, Nextcloud will determine the Web-GUI's language and load it in that language. If you'd rather load it in a different language, however, you can do so by following the procedures listed below.
+
+1. Open Elestio dashboard -> CI/CD -> Open terminal / Vs code
+2. If you open the terminal, type the command (nano config/config.php), otherwise, open config.php in the config folder in vs code, and add the following line at the end of the array object.
+ ``` 
+ "force_language" => "en"   
+  ```   
+3.  Then restart the Pipeline.
+ ```   
+docker-compose down;
+docker-compose up -d;
+ ```
+Similarly, you can swap out "en" with any other language you like, for as "fr" for French.
