@@ -58,3 +58,12 @@ services:
       - ./config:/var/www/html/config
       - ./data:/var/www/html/data
     entrypoint: /cron.sh
+
+  coturn:
+    image: coturn/coturn:latest
+    restart: always
+    ports:
+      - "3478:3478"
+      - "3478:3478/udp"
+    volumes:
+      - ./turnserver.conf:/etc/coturn/turnserver.conf

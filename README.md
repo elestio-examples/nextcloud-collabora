@@ -59,14 +59,10 @@ Scroll to Advanced settings and set your preferred default file type for documen
 Navigate to Files.
 Click create new + to upload supported files, or choose between text, word document, spreadsheet, or presentation files to create.
 
-
-
-
 # Activate CRON jobs
 
 The best setting is to use the CRON option in Nextcloud, to configure it go to https://[CI_CD_DOMAIN]/settings/admin
 and select the CRON option in the list (recommended)
-
 
 # Language Setting
 
@@ -74,12 +70,55 @@ By default, Nextcloud will determine the Web-GUI's language and load it in that 
 
 1. Open Elestio dashboard -> CI/CD -> Open terminal / Vs code
 2. If you open the terminal, type the command (nano config/config.php), otherwise, open config.php in the config folder in vs code, and add the following line at the end of the array object.
- ``` 
- "force_language" => "en"   
-  ```   
+
+```
+"force_language" => "en"
+```
+
 3.  Then restart the Pipeline.
- ```   
+
+```
 docker-compose down;
 docker-compose up -d;
- ```
+```
+
 Similarly, you can swap out "en" with any other language you like, for as "fr" for French.
+
+# Talk Configuration
+
+This readme provides step-by-step instructions on configuring Talk for your NextCloud instance.
+
+## Configuration Steps:
+
+### 1. Enable Talk App
+
+- Open your NextCloud dashboard.
+- Click on your user icon in the top right corner.
+- Select "Apps" from the drop-down list.
+- Navigate to the `Social & communication` apps section.
+- Locate the "Talk" app, download it, and enable it.
+
+### 2. Update STUN Server and TURN Servers
+
+- Go to the following URL in your web browser:
+
+      https://[CI_CD_DOMAIN]/settings/admin/talk
+
+- Scroll down to the `STUN Server` section and update the current STUN URL to:
+
+      [CI_CD_DOMAIN]: 3478
+
+- In the `TURN Servers` section, add the following details:
+
+      turn:only
+      [CI_CD_DOMAIN]:3478
+      <PASSWORD>
+      UPD AND TCP
+
+Replace `<PASSWORD>` with the value of the `STATIC_AUTH_SECRET` environment variable, which can be found in the Elestio overview under "Update Config > ENV."
+
+Now Talk is configured
+
+### 3. Save Changes
+
+- Ensure that you save the changes made to the Talk configuration.
