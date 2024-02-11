@@ -27,11 +27,11 @@ Navigate to the Office & Text apps section.
 
 <img src="./steps/step-02.png" style='width: 300px; max-width:100%;'/>
 
-Find the Nextcloud Office App, download and enable it.
+Find the Nextcloud Office App, download it, and enable it.
 
 <img src="./steps/step-03.png" style='width: 400px; max-width:100%;'/>
 
-Find the Collabora Online App, download and enable it.
+Find the Collabora Online App, download it, and enable it.
 
 <img src="./steps/step-04.png" style='width: 400px; max-width:100%;'/>
 
@@ -49,7 +49,7 @@ Toggle Use your own server, enter
 
         https://[CI_CD_DOMAIN]:21005
 
-and click Save. You should receive a server reachable alert.
+and click Save. You should receive a server-reachable alert.
 
 <img src="./steps/step-06.png" style='width: 300px; max-width:100%;'/>
 Scroll to Advanced settings and set your preferred default file type for documents, to work well with Microsoft Office products, use Office Open XML (OOXML). To automatically watermark documents, enable watermarking under Secure view settings.
@@ -57,7 +57,7 @@ Scroll to Advanced settings and set your preferred default file type for documen
 <img src="./steps/step-07.png" style='width: 600px; max-width:100%;'/>
 
 Navigate to Files.
-Click create new + to upload supported files, or choose between text, word document, spreadsheet, or presentation files to create.
+Click Create new + to upload supported files, or choose between text, word document, spreadsheet, or presentation files to create.
 
 # Activate CRON jobs
 
@@ -122,3 +122,17 @@ Now Talk is configured
 ### 3. Save Changes
 
 - Ensure that you save the changes made to the Talk configuration.
+
+# Custom domain instructions (IMPORTANT)
+
+By default, we set up a CNAME on elestio.app domain, but probably you will want to have your own domain.
+
+***Step1:*** Add your domain in the Elestio dashboard as explained here:
+
+    https://docs.elest.io/books/security/page/custom-domain-and-automated-encryption-ssltls
+
+***Step2:*** Update the environment variables to reflect your custom domain Open Elestio dashboard > Service overview > Click on the Update CONFIG button > Env tab there edit 'NEXTCLOUD_TRUSTED_DOMAINS' with your real domain and click the button 'Update & Restart'.
+
+***Step3:***  Access the Terminal and execute the command: `chown -R www-data:www-data .`.
+
+For dedicated services, execute the following commands before running the above: `cd /opt/app;` 
