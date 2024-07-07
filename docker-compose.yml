@@ -2,7 +2,7 @@ version: "2"
 
 services:
   db:
-    image: elestio/mysql:latest
+    image: elestio/mysql:8.0
     restart: always
     command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
     volumes:
