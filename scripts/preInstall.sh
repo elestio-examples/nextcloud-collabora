@@ -1,5 +1,5 @@
 #set env vars
-#set -o allexport; source .env; set +o allexport;
+set -o allexport; source .env; set +o allexport;
 
 echo "Granting permission..."
 
