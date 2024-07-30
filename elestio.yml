@@ -37,7 +37,8 @@ environments:
     value: "25"
   - key: "SOFTWARE_VERSION_TAG"
     value: "latest"
-    
+  - key: "IP"
+    value: "[IP]"    
 config:
   runTime: "dockerCompose"
   version: ""
