@@ -41,3 +41,6 @@ simple-log
 log-file=/dev/stdout
 
 EOT
+
+sed -i "s~DOMAIN_TO_CHANGE~${DOMAIN}~g" ./docker-compose.yml
+sed -i "s~0.0.0.0~${IP}~g" ./docker-compose.yml
