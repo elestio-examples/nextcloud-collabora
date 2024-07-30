@@ -18,6 +18,8 @@ services:
     restart: always
     ports:
       - 172.17.0.1:21000:80
+    extra_hosts:
+      - "DOMAIN_TO_CHANGE:0.0.0.0"
     links:
       - db
     volumes:
@@ -43,6 +45,8 @@ services:
       - password=${ADMIN_PASSWORD}
       - "extra_params=--o:ssl.enable=false --o:ssl.termination=true--restart"
       - DONT_GEN_SSL_CERT=1
+    extra_hosts:
+      - "DOMAIN_TO_CHANGE:0.0.0.0"
     ports:
       - 172.17.0.1:21002:9980
     restart: always
