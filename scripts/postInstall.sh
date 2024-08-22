@@ -30,6 +30,9 @@ curl http://${target}/index.php \
 
   sed -i "s|0 => '172.17.0.1:21000'|0 => '"${DOMAIN}"'|g" ./config/config.php
   sed -i "s|'overwrite.cli.url' => 'https://172.17.0.1:21000'|'overwrite.cli.url' => 'https://"${DOMAIN}"'|g" ./config/config.php
+  sed -i "s|'maintenance' => false,|'maintenance' => false, \n  'maintenance_window_start' => 1,|g" ./config/config.php
 
   sed -i "s|'installed' => true,|'installed' => true,\n  'mail_from_address' => '"$MAIL_FROM_ADDRESS"',\n  'mail_smtpmode' => 'smtp',\n  'mail_sendmailmode' => 'smtp',\n  'mail_domain' => '"$MAIL_DOMAIN"',\n  'mail_smtpport' => '"$EMAIL_PORT"',\n  'mail_smtphost' => '"$EMAIL_HOST"',|g" ./config/config.php
 
+docker-compose exec -u33 -T app bash -c "php occ maintenance:repair --include-expensive"
+docker-compose exec -u33 -T app bash -c "php occ db:add-missing-indices"
