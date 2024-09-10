@@ -20,7 +20,7 @@ You can open Nextcloud here:
 
 ### 1.
 
-On your NextCloud dashboard, click your user icon in the top right corner, and select Apps from the drop-down list.
+On your Nextcloud dashboard, click your user icon in the top right corner, and select Apps from the drop-down list.
 Navigate to the Office & Text apps section.
 
 <img src="./steps/step-01.png" style='width: 300px; max-width:100%;'/>
@@ -86,13 +86,13 @@ Similarly, you can swap out "en" with any other language you like, for as "fr" f
 
 # Talk Configuration
 
-This readme provides step-by-step instructions on configuring Talk for your NextCloud instance.
+This readme provides step-by-step instructions on configuring Talk for your Nextcloud instance.
 
 ## Configuration Steps:
 
 ### 1. Enable Talk App
 
-- Open your NextCloud dashboard.
+- Open your Nextcloud dashboard.
 - Click on your user icon in the top right corner.
 - Select "Apps" from the drop-down list.
 - Navigate to the `Social & communication` apps section.
