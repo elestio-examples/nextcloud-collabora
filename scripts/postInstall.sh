@@ -5,6 +5,12 @@ set -o allexport; source .env; set +o allexport;
 echo "Installing..."
 sleep 60s;
 
+sed -i "s~DOMAIN_TO_CHANGE~${DOMAIN}~g" ./docker-compose.yml
+sed -i "s~0.0.0.0~${IP}~g" ./docker-compose.yml
+docker-compose down;
+docker-compose up -d;
+sleep 60s;
+
 target=$(docker-compose port app 80)
 curl http://${target}/index.php
 sed -i "/'overwriteprotocol' => 'https',/a   'skeletondirectory' => ''," ./config/config.php
