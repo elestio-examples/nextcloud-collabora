@@ -43,7 +43,7 @@ services:
       - domain=${DOMAIN}
       - username=root
       - password=${ADMIN_PASSWORD}
-      - "extra_params=--o:ssl.enable=false --o:ssl.termination=true--restart"
+      - "extra_params=--o:ssl.enable=false --o:ssl.termination=true"
       - DONT_GEN_SSL_CERT=1
     extra_hosts:
       - "DOMAIN_TO_CHANGE:0.0.0.0"
